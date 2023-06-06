@@ -5,8 +5,6 @@ public class 최빈값구하기 {
         int max = 0;
         for (int i : array){
             sol[i] += 1;
-        }
-        for (int i = 0; i < sol.length; i++){
             if (sol[i] > max){
                 max = sol[i];
                 answer = i;
