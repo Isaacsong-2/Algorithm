@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8"/>
+    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+    <script type="text/javascript"> function inputData() {
+        var jsonStr = '[' + ' {"_id":100001, "req_type":"A", "request_time":"20221029130220", "number":"01000000001"},' + ' {"_id":100002, "req_type":"A", "request_time":"20221029130222", "number":"01000000002"},' + ' {"_id":100003, "req_type":"B", "request_time":"20221029130224", "number":"01000000003"},' + ' {"_id":100004, "req_type":"C", "request_time":"20221029130623", "number":"01000000004"}' + ']';
+        var dataList = JSON.parse(jsonStr);
+        drawTable(dataList);
+    } // ##### 요구사항 1 ###########################
+    function drawTable(dataList) { // TODO: dataList를 통해, 테이블 생성 // 샘플 ----------------------------------
+        var str = "";
+        str += "<tr>";
+        str += "<td>(샘플)10001</td>";
+        str += "<td>F</td>";
+        str += "<td>2022-10-29 13:02:24</td>";
+        str += "<td>010-0000-0001</td>";
+        str += "</tr>";
+        str += "<tr>";
+        str += "<td>(샘플)10002</td>";
+        str += "<td>F</td>";
+        str += "<td>2022-10-29 13:02:25</td>";
+        str += "<td>010-0000-0002</td>";
+        str += "</tr>";
+        $("#tblBody").html(str);
+    }
+
+    // ##### 요구사항 2 ###########################
+    function searchByReqType() { // TODO: 선택된 요청유형과 일치하는 행만 남기고 나머지는 제거
+        var selectedReqType = $("#selectReqType option:selected").val();
+        var tableRows = $("#tblBody").find("tr");
+
+        alert("선택된 요청유형: " + selectedReqType); // TODO: 일치하는 개수 출력
+
+        tableRows.each(function () {
+            var reqType = $(this).find("td:nth-child(2)").text();
+            alert(reqType);
+            if (reqType === selectedReqType) {
+                $(this).show();
+            } else {
+                $(this).hide();
+            }
+        });
+        // var matchingRowCount = $("#tblBody").find("tr:visible").length;
+        var matchingRowCount = tableRows.length;
+        alert("검색된 개수: " + matchingRowCount + "개");
+    }
+
+    function tableRemove() {
+        $("#tblBody").html("");
+        console.log("테이블 제거");
+    } </script>
+</head>
+<body>
+<div style="margin:5px"><input type="button" value="데이터 읽기" onclick="inputData()"> <select id="selectReqType"
+                                                                                           onchange="searchByReqType()">
+    <option value="ALL">전체</option>
+    <option value="A">타입 A</option>
+    <option value="B">타입 B</option>
+    <option value="C">타입 C</option>
+</select> <input type="button" value="데이터 제거" onclick="tableRemove()"></div>
+<div id="tableArea" style="margin:5px">
+    <table border="1">
+        <thead>
+        <tr>
+            <th>요청ID</th>
+            <th>요청유형</th>
+            <th>요청시간</th>
+            <th>전화번호</th>
+        </tr>
+        </thead>
+        <tbody id="tblBody"></tbody>
+    </table>
+</div>
+</body>
+</html>
