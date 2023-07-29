@@ -1,6 +1,7 @@
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.Arrays;
 import java.util.StringTokenizer;
 
 public class 안녕1535 {
@@ -16,7 +17,7 @@ public class 안녕1535 {
             l[i] = Integer.parseInt(st.nextToken());
             j[i] = Integer.parseInt(st2.nextToken());
         }
-
+//        dp[n][k]가 의미하는 것은 n번째사람을 만났을때 세준이의 체력이 k라면 얻을 수 있는 기쁨의 최댓값
         for (int i = 1; i <= n; i++) {
             for (int k = 1; k <= 99; k++) {
                 if (k - l[i] >= 0) {
@@ -25,5 +26,8 @@ public class 안녕1535 {
             }
         }
         System.out.println(dp[n][99]);
+        for (int[] ints : dp) {
+            System.out.println(Arrays.toString(ints));
+        }
     }
 }
